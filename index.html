@@ -2,45 +2,29 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>osp</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-  </head>
-  <body>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="https://osp.github.io">
-          <p>Open Source Protector</p>
-          </a>
-      
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-      
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
-          
-      
-  
-          </div>
-      
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <button class="button is-primary">Contribute</button>
-                <button class="button is-success">Protect your project</button>
 
-              </div>
-            </div>
-          </div>
-        </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  
+</head>
+  <body>
+    <nav class="navbar navbar-light bg-light">
+        <form class="container-fluid justify-content-start">
+            <a class="navbar-brand">Open Source Protector</a>
+            <button class="button is-primary">Contribute</button>
+            <button class="button is-success">Protect your project</button>
+            <button class="button is-warning">Fill a Report</button>
+   
+        </form>
       </nav>
+
+
       <br>
       <br>
       <div class="card">
+          <div class="card-title">About us</div>
         <div class="card-content">
           <div class="content">
         Open Source Protector is a non profit community to protect open source projects and serve according to it's LICENSE.
@@ -49,6 +33,19 @@
        </div>
         </div>
       </div>
+<br>
+<br>
+      <div class="card">
+          <div class="card-title">How Can I help?</div>
+          <div class="card-content">
+              <div class="content">
+                  It would be great if you can help!
+                  You can help by becoming a <a class="button is-rounded is-small is-primary">contributor</a>.
+                  After you become a contributor you can investigate OSP reports filled
+                  by project owners   
+              </div>
+          </div>
+      </div>
 <script></script>
 <style>
     .card{
@@ -56,6 +53,33 @@
         background-color: #e3e2e2;
          box-shadow: 0 0.5em 1em -0.125em rgb(116 79 79 / 24%), 0 0 0 1px rgb(237 237 237 / 24%);
     }
+    body{
+        text-align: center;
+         }
+    #style-13::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.9);
+	border-radius: 10px;
+	background-color: #CCCCCC;
+}
+
+#style-13::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-13::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #D62929;
+	background-image: -webkit-linear-gradient(90deg,
+											  transparent,
+											  rgba(0, 0, 0, 0.4) 50%,
+											  transparent,
+											  transparent)
+}
+
 </style>
   </body>
 </html>
