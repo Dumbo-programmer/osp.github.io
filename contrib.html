@@ -96,16 +96,16 @@
    const email = document.getElementById('email')
    const emaill = document.getElementById('emaill')
    const password = '1234567890'
-firebase.firestore().collection('contrilist').doc(name.value).set({
-  name: name.value
-})
+
    submit.addEventListener('click', function(){
     firebase.auth().createUserWithEmailAndPassword(email.value, password)
   .then((userCredential) => {
     // Signed in 
     var user = userCredential.user;
     document.title = 'You are in'; //change/set page title in JavaScript
-
+    firebase.firestore().collection('contrilist').doc(name.value).set({
+  name: name.value
+})
     user.updateProfile({
   displayName: name.value
 })
