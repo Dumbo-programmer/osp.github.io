@@ -25,6 +25,25 @@
       
     </nav>
     <br>
+    <!--modal start-->
+    <div class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Reason</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+         <input id="reason" class="input is-rounded is-success">
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" id="save">Save changes</button>
+          <button class="button cls">Cancel</button>
+        </footer>
+      </div>
+    </div>
+
+  <!--Modal end-->
     <button class="button is-primary" id="rg">Register</button>
     <button class="button is-danger" id="log">Login</button>  
 <br>
@@ -36,9 +55,11 @@
 <div class="container">
         <br>
       </div>
+      <br>
       <div class="containerr">
         <br>
       </div>
+      <br>
 <style>
     body{
         text-align: center;
@@ -75,6 +96,9 @@
    const email = document.getElementById('email')
    const emaill = document.getElementById('emaill')
    const password = '1234567890'
+firebase.firestore().collection('contrilist').doc(name.value).set({
+  name: name.value
+})
    submit.addEventListener('click', function(){
     firebase.auth().createUserWithEmailAndPassword(email.value, password)
   .then((userCredential) => {
@@ -121,8 +145,10 @@ document.querySelector('.register').style.display = "none"
 document.querySelector('#out').style.display = ''
 document.getElementById('dname').innerText = "You are logged in as: "+user.displayName
 document.title = 'You are in'; //change/set page title in JavaScript
+document.querySelector('.container').style.display = ""
 
   } else {
+    document.querySelector('.container').style.display = "none"
     document.querySelector('#log').style.display = ''
 document.querySelector('#rg').style.display = ''
 document.querySelector('#out').style.display = 'none'
@@ -139,7 +165,8 @@ function out(){
   // An error happened.
 });
 }
-
+const save = document.getElementById('save')
+const reason = document.getElementById('reason')
 var db = firebase.firestore()
 //fetching data of reports
 db.collection("reports").where("status", '==', "Unapproved").get().then((querySnapshot) => {
@@ -182,10 +209,20 @@ sent(doc.data().name, desc)
 var btn = document.createElement('button')
 btn.setAttribute('class', 'button is-primary')
 btn.innerText = "Approve?"
+var bttn = document.createElement('button')
+bttn.innerText = "Reject"
+bttn.setAttribute('class', "button is-danger")
+holder.appendChild(bttn)
 holder.appendChild(btn)
+let docid = doc.data().name;
 btn.addEventListener('click', function(){
-
+  update(docid)
 })
+
+bttn.addEventListener('click', function(){
+  uate(docid)
+})
+
     });
 });
 
@@ -208,14 +245,116 @@ status: 'Approved'
 }, {merge: true})
 }
 
+///Verify logic
+db.collection("registers").where("status", '==', "Unapproved").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.data())
+        var space = document.createElement('br')
+        document.querySelector('.containerr').appendChild(space)
+
+        var holder = document.createElement('div')
+        holder.setAttribute('class', 'card')
+        holder.setAttribute('ID', doc.data().name)
+        document.querySelector('.containerr').appendChild(holder)
+        ////
+        var title2 = document.createElement('div')
+        title2.setAttribute('class', 'card-title-one')
+        title2.innerText = "Project-verification"
+         holder.appendChild(title2)
+        
+        /////
+        var title = document.createElement('div')
+        title.setAttribute('class', 'card-title')
+        title.innerText = "Project Name: " + doc.data().name
+        holder.appendChild(title)
+
+        var desc = document.createElement('div')
+        desc.setAttribute('class', 'card-content')
+        var des = document.createElement('div')
+        des.setAttribute('class', 'content')
+        holder.appendChild(desc)
+        desc.appendChild(des)
+des.innerText = "Description: " + doc.data().desc
+//////
+var ds = document.createElement('div')
+        ds.setAttribute('class', 'content')
+        holder.appendChild(desc)
+        desc.appendChild(ds)
+ds.innerText = "Status: " + doc.data().status
+//sent(doc.data().name, desc)
+var btn = document.createElement('button')
+btn.setAttribute('class', 'button is-primary')
+btn.innerText = "Approve?"
+var bttn = document.createElement('button')
+bttn.innerText = "Reject"
+bttn.setAttribute('class', "button is-danger")
+
+holder.appendChild(bttn)
+holder.appendChild(btn)
+let docid = doc.data().name;
+var url = document.createElement('div')
+var license = document.createElement('div')
+license.setAttribute('class', 'content')
+license.innerText = "License: "+doc.data().license
+  url.setAttribute('class','content')
+  url.innerText = "Project URL: "+doc.data().url
+  desc.appendChild(url)
+  desc.appendChild(license)
+
+btn.addEventListener('click', function(){uupdate(docid)
+})
+bttn.addEventListener('click', function(){
+  udate(docid)
+})
+
+    });
+});
+
+
+function uupdate(docid){
+db.collection('registers').doc(docid).set({
+status: 'Approved'
+}, {merge: true})
+}
+
+
+function udate(docid){
+  document.querySelector('.modal').className += " is-active"
+save.addEventListener('click', function(){
+if(reason.value == ""){
+  alert("Please provide a reason")
+}else{
+  db.collection('registers').doc(docid).set({
+status: 'Rejected',
+reason: reason.value
+}, {merge: true})
+}
+})
+}
+
+function uate(docid){
+  document.querySelector('.modal').className += " is-active"
+save.addEventListener('click', function(){
+if(reason.value == ""){
+  alert("Please provide a reason")
+}else{
+  db.collection('reports').doc(docid).set({
+status: 'Rejected',
+reason: reason.value
+}, {merge: true})
+}
+})
+}
 
 
 
-
-
-
-
-
+document.querySelector('.delete').addEventListener('click', function(){
+  document.querySelector('.modal').classList.remove("is-active")
+})
+document.querySelector('.cls').addEventListener('click', function(){
+  document.querySelector('.modal').classList.remove("is-active")
+})
   </script>
 <div class="card register">
   <div class="card-title">Register</div>
@@ -247,8 +386,39 @@ status: 'Approved'
     display: none;
   }
   .container{
-    box-shadow: 1px 1px 8px 1px #ff4b20;
+    box-shadow: 1px 1px 8px 1px #fffb20;
   }
+  .containerr{
+    box-shadow: 1px 1px 8px 1px #31daaf;
+  }
+
+  #style-13::-webkit-scrollbar-track
+{
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+
+  background-color: #D62929;
+	background-image: -webkit-linear-gradient(90deg,
+											  transparent,
+											  rgba(0, 0, 0, 0.4) 50%,
+											  transparent,
+											  transparent)
+}
+
 </style>
   </body>
 </html>

@@ -44,11 +44,26 @@
         <div class="card-content">
           <div class="content">
         Open Source Protector is a non profit community to protect open source projects and serve according to it's LICENSE.
-        Thousands of talented contributors use their time and talent to form a masterpiece just for the work to be stolen? No MORE! we have a motto and that is to make sure all open source projects are being used what and how their license allows them to be used for 
+        Thousands of talented contributors use their time and talent to form a masterpiece just for the work to be stolen? No MORE! we have a motto and that is to make sure all open source projects are being used what and how their license allows them to be used for.
+        Let's protect open source projects using osp license! 
 
        </div>
         </div>
       </div>
+<br>
+<br>
+<div class="card">
+  <div class="card-title">Current contributors(Dōmo arigatōgozaimasu!)</div>
+
+  <div class="card-content">
+    <div class="content">
+      <ul id="li">
+        
+      </ul>
+      
+    </div>
+  </div>
+</div>
 <br>
 <br>
       <div class="card">
@@ -57,13 +72,40 @@
               <div class="content">
                   It would be great if you can help!
                   You can help by becoming a <a class="button is-rounded is-small is-primary" href="contrib.html">contributor</a>.
-                  After you become a contributor you can investigate OSP reports filled
-                  by project owners   
+                  After you become a contributor you can investigate OSP issue-reports filled
+                  by project owners and also you can verify registered projects.  
               </div>
           </div>
       </div>
-<script></script>
+<script>
+
+const firebaseConfig = {
+      apiKey: "AIzaSyDlwwliOlN5-_7k8ELVtd0X2y_REty-S8U",
+      authDomain: "osprotector-dcacf.firebaseapp.com",
+      projectId: "osprotector-dcacf",
+      storageBucket: "osprotector-dcacf.appspot.com",
+      messagingSenderId: "96867135530",
+      appId: "1:96867135530:web:e219fc2006fd730164d353",
+      measurementId: "G-GVQZXK2WD4"
+    };
+  
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+ 
+    firebase.firestore().collection("contrilist").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const li = document.createElement('span')
+    document.querySelector('#li').appendChild(li)
+ li.innerText = doc.data().name+","
+  })
+    })
+</script>
 <style>
+  #li{
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding: 7px;
+  }
     .navbar-brand{
         font-weight: 100;
     }
@@ -92,21 +134,24 @@
          }
     #style-13::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.9);
-	border-radius: 10px;
-	background-color: #CCCCCC;
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+
 }
 
-#style-13::-webkit-scrollbar
+::-webkit-scrollbar
 {
 	width: 12px;
 	background-color: #F5F5F5;
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+border-radius: 10px;
 }
 
-#style-13::-webkit-scrollbar-thumb
+::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
-	background-color: #D62929;
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+
+  background-color: #D62929;
 	background-image: -webkit-linear-gradient(90deg,
 											  transparent,
 											  rgba(0, 0, 0, 0.4) 50%,

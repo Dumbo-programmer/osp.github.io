@@ -40,7 +40,9 @@
     <li>You think your work is being stolen</li>
     <li>If you want to change your license</li>
     <li>If you have solid proof of something using your project and you don't want them to</li>
-</ul>
+    <li>If your project is archived</li>
+    <li>If you have otheer issues</li>
+  </ul>
 </div>
 </div>
 
@@ -61,6 +63,33 @@
      .navbar-brand{
         font-weight: 100;
     }
+    #style-13::-webkit-scrollbar-track
+{
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+
+  background-color: #D62929;
+	background-image: -webkit-linear-gradient(90deg,
+											  transparent,
+											  rgba(0, 0, 0, 0.4) 50%,
+											  transparent,
+											  transparent)
+}
+
  </style>
  <script type="module">
     // Import the functions you need from the SDKs you need
@@ -98,7 +127,10 @@ if(issue.value == "" && name.value == ""){
   issue.className += " is-danger"
 
 }
-else{   
+else{ 
+  db.collection('registers').doc(name.value).get().then((doc)=>{
+    if(doc.exists){
+///////
 send();
 function send(){
 db.collection("reports").doc(name.value).set({
@@ -113,6 +145,12 @@ setTimeout(function(){
 window.location = 'index.html'
 }, 4000)
 }
+//////
+    }else{
+      alert('You didnt register or wrong project name')
+    }
+  })  
+
 }
 })
   </script> 

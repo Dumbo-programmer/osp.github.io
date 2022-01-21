@@ -110,7 +110,8 @@ firebase.firestore().collection("registers").doc(name.value).set({
   email: email.value,
   url: url.value,
   desc: desc.value,
-  license: op.value
+  license: op.value,
+  status: "Unapproved"
 });
 }
 }
@@ -134,6 +135,36 @@ opp.innerText = "Year: <COPYRIGHT YEAR>"+
           body{
               text-align: center;
           }
+          .navbar-brand{
+        font-weight: 100;
+    }
+    #style-13::-webkit-scrollbar-track
+{
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+  box-shadow: 2px 2px 20px 1px #d03e3e;
+
+  background-color: #D62929;
+	background-image: -webkit-linear-gradient(90deg,
+											  transparent,
+											  rgba(0, 0, 0, 0.4) 50%,
+											  transparent,
+											  transparent)
+}
+
       </style>
       <script src="function.js"></script>
   </body>
