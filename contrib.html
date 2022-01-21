@@ -245,6 +245,8 @@ function update(docid){
 db.collection('reports').doc(docid).set({
 status: 'Approved'
 }, {merge: true})
+save.parentElement.style.display = "none"
+
 }
 
 ///Verify logic
@@ -318,6 +320,8 @@ function uupdate(docid){
 db.collection('registers').doc(docid).set({
 status: 'Approved'
 }, {merge: true})
+save.parentElement.style.display = "none"
+
 }
 
 
@@ -327,10 +331,16 @@ save.addEventListener('click', function(){
 if(reason.value == ""){
   alert("Please provide a reason")
 }else{
+  save.className += " is-loading"
   db.collection('registers').doc(docid).set({
 status: 'Rejected',
 reason: reason.value
 }, {merge: true})
+setTimeout(function(){
+  document.querySelector('.modal').classList.remove("is-active")
+}, 4000)
+save.parentElement.style.display = "none"
+
 }
 })
 }
@@ -341,10 +351,19 @@ save.addEventListener('click', function(){
 if(reason.value == ""){
   alert("Please provide a reason")
 }else{
+  save.className += " is-loading"
+
   db.collection('reports').doc(docid).set({
 status: 'Rejected',
 reason: reason.value
 }, {merge: true})
+setTimeout(function(){
+  document.querySelector('.modal').classList.remove("is-active")
+}, 4000)
+///
+save.parentElement.style.display = "none"
+
+///
 }
 })
 }
