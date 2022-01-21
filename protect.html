@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  </head>
+  <body>
+    <nav class="navbar">
+        <form class="navbar-start">
+            <a class="navbar-brand">Open Source Protector</a>
+            </form>
+            <div class="navbar-end">
+            <a class="button is-primary" href="contrib.html">Contribute</a>
+            <a class="button is-success" href="protect.html">Protect your project</a>
+            <a class="button is-warning" href="report.html">Fill a Report</a>
+   </div>
+        
+      </nav>
+      <br>
+      <p>Protect your project by registering it under any osp license.There are a plenty of them,choose which one suits your project</p>
+      <input class="input is-success" placeholder="Project Name(Remember it!)" id="name">
+      <input class="input is-success" placeholder="Your email" id="email">
+      <input class="input is-success" placeholder="Project URL EX: Github,Gitlabs etc" id="url">
+      <textarea id="desc" class="input is-success" placeholder="Describe your project in a few lines"></textarea>
+      <div class="field">
+        <div class="control">
+          <div class="select">
+            <select id="li" onchange="Value();">
+               <option value="none">None</option> 
+              <option value="OPL">OPL</option>
+              <option value="OCL">OCL</option>
+            </select>
+          </div>
+        </div>
+      </div>
+<div id="" class="card-content">
+    LICENSE DESCRIPTION:
+<p id="lid"></p>    
+</div>      
+      <button class="button is-primary is-rounded" id="submit">Submit</button>
+<script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyDlwwliOlN5-_7k8ELVtd0X2y_REty-S8U",
+          authDomain: "osprotector-dcacf.firebaseapp.com",
+          projectId: "osprotector-dcacf",
+          storageBucket: "osprotector-dcacf.appspot.com",
+          messagingSenderId: "96867135530",
+          appId: "1:96867135530:web:e219fc2006fd730164d353",
+          measurementId: "G-GVQZXK2WD4"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        import { getFirestore, doc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+
+        // Add a new document in collection "cities"
+document.getElementById('submit').addEventListener('click', function(){
+const name = document.querySelector('#name')
+const email = document.getElementById('email')
+const url = document.getElementById('url')
+const desc = document.getElementById('desc')
+const op = document.getElementById('li')  
+if(name.value == ""){
+    name.className += " is-danger"
+}else if(email.value == ""){
+email.className += " is-danger"
+}else if(url.value == ""){
+url.className += " is-danger"
+}else if(op.value == "none"){
+op.className += " is-danger"
+}else{
+send()
+async function send(){
+await setDoc(doc(db, "registers", name), {
+  name: name.value,
+  email: email.value,
+  url: url.value,
+  desc: desc.value,
+  license: op.value
+});
+}
+}
+})
+/*const op = document.getElementById('li')  
+const opp = document.getElementById('lid')  
+function Value(){
+    if(op.value == "OPL"){
+opp.innerText = "Year: <COPYRIGHT YEAR>"+
+    "Author: <Author>"+
+    "/'Protected Under Open source protector Public License(OPL)/'"+
+    "This software is as it is without warranty of any kind"+
+
+    "This License Allows the following"+
+    "anyone using the software is allowed to use,copy,modify,merge,publish and distribute within "+
+    "LIMITATIONS.to deal is granted for individual only"
+    }
+  }*/
+      </script>    
+      <style>
+          body{
+              text-align: center;
+          }
+      </style>
+      <script src="function.js"></script>
+  </body>
+</html>

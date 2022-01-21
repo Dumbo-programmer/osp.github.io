@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>report</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  </head>
+  <body>
+    <nav class="navbar">
+        <form class="navbar-start">
+            <a class="navbar-brand" href="index.html">Open Source Protector</a>
+            </form>
+            <div class="navbar-end">
+            <a class="button is-primary" href="contrib.html">Contribute</a>
+            <a class="button is-success" href="protect.html">Protect your project</a>
+            <a class="button is-warning" href="report.html">Fill a Report</a>
+   </div>
+        
+      </nav>
+
+
+
+      <div class="card">
+<h1 class="card-title">Issue a report</h1>
+<div class="card-content">
+<p class="content">Is your project under any of the osp licenses? If no, sorry we cannot help you, you need to register your project under a license from osp</p><a class="button is-success is-sm is-rounded" href="protect.html">Here</a> 
+<br>
+<h3>If your project is registered</h3>
+<p>Read the Guidelines here:</p>
+<p>Issue a report if</p>
+<ul>
+    <li>You think someone or something is violating your license</li>
+    <li>You think your work is being stolen</li>
+    <li>If you want to change your license</li>
+    <li>If you have solid proof of something using your project and you don't want them to</li>
+</ul>
+</div>
+</div>
+
+<br>
+<div class="card">
+    <div class="card-title">Issue Form</div>
+    <div class="card-content">
+     <input class="input is-primary" placeholder="Project Name" id="name">
+   <textarea class="input is-primary" placeholder="Describe the issue" id="issue"></textarea>
+    </div>
+</div>
+</body>
+ <style>
+     body{
+         text-align: center;
+     }
+     .navbar-brand{
+        font-weight: 100;
+    }
+ </style>
+ <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDlwwliOlN5-_7k8ELVtd0X2y_REty-S8U",
+      authDomain: "osprotector-dcacf.firebaseapp.com",
+      projectId: "osprotector-dcacf",
+      storageBucket: "osprotector-dcacf.appspot.com",
+      messagingSenderId: "96867135530",
+      appId: "1:96867135530:web:e219fc2006fd730164d353",
+      measurementId: "G-GVQZXK2WD4"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script> 
+</html>
