@@ -4,11 +4,41 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Thanks for your interest!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase-app.js" integrity="sha512-RZkFrgXHJAhWYT/K3rTWgrl/vJMuDy2hq92onjmWIR8oZEL0Gcfge/pgW59QsSsE6Ko+7+bxPnpdksaQd4gLpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase.js" integrity="sha512-wLI6M1/wOnh7Pt0Yl3FApZCXv/+GXozJSucELLDSb2W3CKdQsj7AfxKiSLRfvjjBkv8WUt+6kafynoxWg7NHeA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase-analytics.js" integrity="sha512-oH21XcCOtwgY+lMujHQjU0/2T22Ll3lKO7+dwqeqtGDwQRBBa0rJ9NBOQAFmg0tKSzsKbE5ZenYzhsAZfc8u3A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase-auth.js" integrity="sha512-EUlZOa2xvC9ENkGHATsiLAMsFJtcb1Eec4xl4x1RzuKwC4oZ1PknzC271FjHvbrC3DY40olJkjQ1Yj1vVL6RZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase-firestore.js" integrity="sha512-wAGQqyjxM1VbG6e2+ku/F+jeap6hs/hp6SLRRDTidFeY6MWVyl/8Sw+kJRyFJ3BfqfoRzpN2234OYKGYSSq8sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   </head>
   <body>
-      <h1>select one of the projects from down below</h1>
-      <div class="container"></div>
+    <nav class="navbar">
+      <form class="navbar-start">
+          <a href="index.html" class="navbar-brand">Open Source Protector</a>
+          </form>
+          <div class="navbar-end">
+          <a class="button is-primary" href="contrib.html">Contribute</a>
+          <a class="button is-success" href="protect.html">Protect your project</a>
+          <a class="button is-warning" href="report.html">Fill a Report</a>
+ </div>
+      
+    </nav>
+    <br>
+    <button class="button is-primary" id="rg">Register</button>
+    <button class="button is-danger" id="log">Login</button>  
+<br>
+<p id="dname"></p>
+<button id="out" class="button is-secondary">Log Out</button>
+<br>      
+<br>
+<p></p>
+<div class="container">
+        <br>
+      </div>
+      <div class="containerr">
+        <br>
+      </div>
 <style>
     body{
         text-align: center;
@@ -19,8 +49,8 @@
 </style>
 <script type="module">
     // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+//import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+  //  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -37,9 +67,188 @@
     };
   
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  </script>
+    firebase.initializeApp(firebaseConfig);
+   // const analytics = getAnalytics(app);
+   const submit = document.getElementById('submit')
+   const submitt = document.getElementById('submitt')
+   const name = document.getElementById('name')
+   const email = document.getElementById('email')
+   const emaill = document.getElementById('emaill')
+   const password = '1234567890'
+   submit.addEventListener('click', function(){
+    firebase.auth().createUserWithEmailAndPassword(email.value, password)
+  .then((userCredential) => {
+    // Signed in 
+    var user = userCredential.user;
+    document.title = 'You are in'; //change/set page title in JavaScript
 
+    user.updateProfile({
+  displayName: name.value
+})
+  })
+   })
+
+ //round 2
+ submitt.addEventListener('click', function(){
+    firebase.auth().signInWithEmailAndPassword(emaill.value, password)
+  .then((userCredential) => {
+    // Signed in 
+    var user = userCredential.user;
+    document.getElementById('dname').innerText = "You are logged in as:"+user.displayName
+    document.title = 'You are in'; //change/set page title in JavaScript
+
+  })
+   })
+ ////    
+   document.getElementById('rg').addEventListener('click', function(){
+     document.querySelector('.register').style.display = "block"
+     document.querySelector('.login').style.display = "none"
+
+    })
+
+
+    document.getElementById('log').addEventListener('click', function(){
+     document.querySelector('.register').style.display = "none"
+     document.querySelector('.login').style.display = "block"
+
+    })
+    firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+document.querySelector('#log').style.display = 'none'
+document.querySelector('#rg').style.display = 'none'
+document.querySelector('.login').style.display = "none"
+document.querySelector('.register').style.display = "none"
+document.querySelector('#out').style.display = ''
+document.getElementById('dname').innerText = "You are logged in as: "+user.displayName
+document.title = 'You are in'; //change/set page title in JavaScript
+
+  } else {
+    document.querySelector('#log').style.display = ''
+document.querySelector('#rg').style.display = ''
+document.querySelector('#out').style.display = 'none'
+
+  }
+});
+document.getElementById('out').addEventListener('click', function(){
+  out();
+})
+function out(){
+  firebase.auth().signOut().then(() => {
+  // Sign-out successful.
+}).catch((error) => {
+  // An error happened.
+});
+}
+
+var db = firebase.firestore()
+//fetching data of reports
+db.collection("reports").where("status", '==', "Unapproved").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.data())
+        var space = document.createElement('br')
+        document.querySelector('.container').appendChild(space)
+
+        var holder = document.createElement('div')
+        holder.setAttribute('class', 'card')
+        holder.setAttribute('ID', doc.data().name)
+        document.querySelector('.container').appendChild(holder)
+        ////
+        var title2 = document.createElement('div')
+        title2.setAttribute('class', 'card-title-one')
+        title2.innerText = "ISSUE"
+         holder.appendChild(title2)
+        
+        /////
+        var title = document.createElement('div')
+        title.setAttribute('class', 'card-title')
+        title.innerText = "Project Name: " + doc.data().name
+        holder.appendChild(title)
+
+        var desc = document.createElement('div')
+        desc.setAttribute('class', 'card-content')
+        var des = document.createElement('div')
+        des.setAttribute('class', 'content')
+        holder.appendChild(desc)
+        desc.appendChild(des)
+des.innerText = "Issue: " + doc.data().issue
+//////
+var ds = document.createElement('div')
+        ds.setAttribute('class', 'content')
+        holder.appendChild(desc)
+        desc.appendChild(ds)
+ds.innerText = "Status: " + doc.data().status
+sent(doc.data().name, desc)
+var btn = document.createElement('button')
+btn.setAttribute('class', 'button is-primary')
+btn.innerText = "Approve?"
+holder.appendChild(btn)
+btn.addEventListener('click', function(){
+
+})
+    });
+});
+
+function sent(id, desc){
+db.collection('registers').doc(id).get().then((doc)=>{
+  var url = document.createElement('div')
+var license = document.createElement('div')
+license.setAttribute('class', 'content')
+license.innerText = "License: "+doc.data().license
+  url.setAttribute('class','content')
+  url.innerText = "Project URL: "+doc.data().url
+  desc.appendChild(url)
+  desc.appendChild(license)
+})
+}
+
+function update(docid){
+db.collection('reports').doc(docid).set({
+status: 'Approved'
+}, {merge: true})
+}
+
+
+
+
+
+
+
+
+
+  </script>
+<div class="card register">
+  <div class="card-title">Register</div>
+<div class="card-content">
+  <div class="content">
+    <input class="input is-primary" id="name" placeholder="Github Name">
+    <input class="input is-primary" id="email" placeholder="Email">
+<button class="button is-primary" id="submit">Register</button>
+  </div>
+</div>
+</div>
+
+
+<div class="card login">
+  <div class="card-title">Login</div>
+<div class="card-content">
+  <div class="content">
+    <input class="input is-primary" id="emaill" placeholder="Email">
+<button class="button is-danger" id="submitt">Login</button>
+  </div>
+</div>
+</div>
+
+<style>
+  .register{
+    display: none;
+  }
+  .login{
+    display: none;
+  }
+  .container{
+    box-shadow: 1px 1px 8px 1px #ff4b20;
+  }
+</style>
   </body>
 </html>

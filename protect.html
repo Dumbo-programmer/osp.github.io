@@ -4,12 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase-app.js" integrity="sha512-RZkFrgXHJAhWYT/K3rTWgrl/vJMuDy2hq92onjmWIR8oZEL0Gcfge/pgW59QsSsE6Ko+7+bxPnpdksaQd4gLpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase.js" integrity="sha512-wLI6M1/wOnh7Pt0Yl3FApZCXv/+GXozJSucELLDSb2W3CKdQsj7AfxKiSLRfvjjBkv8WUt+6kafynoxWg7NHeA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase-analytics.js" integrity="sha512-oH21XcCOtwgY+lMujHQjU0/2T22Ll3lKO7+dwqeqtGDwQRBBa0rJ9NBOQAFmg0tKSzsKbE5ZenYzhsAZfc8u3A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase-auth.js" integrity="sha512-EUlZOa2xvC9ENkGHATsiLAMsFJtcb1Eec4xl4x1RzuKwC4oZ1PknzC271FjHvbrC3DY40olJkjQ1Yj1vVL6RZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.9.1/firebase-firestore.js" integrity="sha512-wAGQqyjxM1VbG6e2+ku/F+jeap6hs/hp6SLRRDTidFeY6MWVyl/8Sw+kJRyFJ3BfqfoRzpN2234OYKGYSSq8sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   </head>
   <body>
     <nav class="navbar">
         <form class="navbar-start">
-            <a class="navbar-brand">Open Source Protector</a>
+            <a href="index.html" class="navbar-brand">Open Source Protector</a>
             </form>
             <div class="navbar-end">
             <a class="button is-primary" href="contrib.html">Contribute</a>
@@ -31,6 +37,7 @@
                <option value="none">None</option> 
               <option value="OPL">OPL</option>
               <option value="OCL">OCL</option>
+              <option value="ONL">ONL</option>
             </select>
           </div>
         </div>
@@ -42,8 +49,11 @@
       <button class="button is-primary is-rounded" id="submit">Submit</button>
 <script type="module">
         // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+       // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+        //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+        //import { getFirestore, doc, setDoc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+      //  import { getFirestore} from "https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore.js";
+        
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
       
@@ -60,16 +70,17 @@
         };
       
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
+        firebase.initializeApp(firebaseConfig);
+       // const analytics = getAnalytics(app);
 
-        import { getFirestore, doc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 
         // Add a new document in collection "cities"
 document.getElementById('submit').addEventListener('click', function(){
 const name = document.querySelector('#name')
 const email = document.getElementById('email')
 const url = document.getElementById('url')
+//const db = getFirestore();
+
 const desc = document.getElementById('desc')
 const op = document.getElementById('li')  
 if(name.value == ""){
@@ -81,9 +92,20 @@ url.className += " is-danger"
 }else if(op.value == "none"){
 op.className += " is-danger"
 }else{
+  name.style.display = 'none'
+  email.style.display = 'none'
+  url.style.display = 'none'
+  desc.style.display = 'none'
+op.style.display = 'none'
+  document.getElementById("submit").className += ' is-loading'
+setTimeout(function(){
+document.getElementById('lid').innerText = "Your Project is Registered! Now you can copy the license and use it!"
+document.getElementById("submit").style.display = 'none'
+
+}, 4000)
 send()
 async function send(){
-await setDoc(doc(db, "registers", name), {
+firebase.firestore().collection("registers").doc(name.value).set({
   name: name.value,
   email: email.value,
   url: url.value,
